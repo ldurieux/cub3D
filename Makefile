@@ -2,12 +2,17 @@ NAME		= cub3D
 
 SRCS		= \
 			  main.c \
+			  srcs/map/eat_chrs.c \
+			  srcs/map/load.c \
+			  srcs/map/parse.c \
+			  srcs/map/parse_metadata.c \
+			  srcs/map/read.c \
 
 HEADERS		= \
 			  includes \
 
 LIB_NAMES	= \
-			  libft
+			  libft \
 			  
 LIBS		= $(subst lib,-l,$(notdir $(LIB_NAMES)))
 LIB_LD		= $(addprefix -L,$(LIB_NAMES))
