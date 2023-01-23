@@ -14,6 +14,7 @@ HEADERS		= \
 
 LIB_NAMES	= \
 			  libft \
+			  libmlx \
 			  
 LIBS		= $(subst lib,-l,$(notdir $(LIB_NAMES)))
 LIB_LD		= $(addprefix -L,$(LIB_NAMES))
