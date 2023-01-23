@@ -30,7 +30,7 @@ static int	skip_empty_lines(char **raw)
 		if (cpy[idx] == '\n')
 		{
 			cpy += idx + 1;
-			idx = (size_t)-1;
+			idx = (size_t) - 1;
 		}
 	}
 	ft_dprintf(2, MAP_NOT_FOUND);
@@ -70,5 +70,11 @@ int	parse(t_map *map, char *raw)
 	if (!skip_empty_lines(&raw))
 		return (0);
 	get_map_size(map, raw);
-	return (1);
+	if (map->width == 0 || map->height == 0)
+		return (ft_dprintf(2, MAP_DATA_NOT_FOUND), 0);
+	map->data = malloc(sizeof(uint8_t) * map->width * map->height);
+	if (!map->data)
+		return (ft_dprintf(2, BAD_ALLOC), 0);
+	ft_memset(map->data, 0, sizeof(uint8_t) * map->width * map->height);
+	return (parse_map(map, raw));
 }

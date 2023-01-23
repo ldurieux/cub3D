@@ -66,8 +66,8 @@ static int	parse_field(t_map *map, char **raw, t_field field)
 		*raw = cpy;
 		return (1);
 	}
-	struct_idx = (field == South_Tex) * 1 + (field == East_Tex) * 2
-		+ (field == West_Tex) * 3;
+	struct_idx = (field == North_Tex) * NORTH + (field == South_Tex) * SOUTH
+		+ (field == East_Tex) * EAST + (field == West_Tex) * WEST;
 	idx = (size_t) - 1;
 	while (!ft_is_whitespace(cpy[++idx]))
 		;

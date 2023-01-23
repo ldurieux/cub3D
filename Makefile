@@ -6,6 +6,7 @@ SRCS		= \
 			  srcs/map/load.c \
 			  srcs/map/parse.c \
 			  srcs/map/parse_metadata.c \
+			  srcs/map/parse_map.c \
 			  srcs/map/read.c \
 
 HEADERS		= \

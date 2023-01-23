@@ -29,6 +29,13 @@
 # define COLOR_UNEX_NL "Error\nUnexpected new line in color\n"
 # define COLOR_UNEX_CHR "Error\nUnexpected character in color\n"
 # define MAP_NOT_FOUND "Error\nMap not found\n"
+# define MAP_DATA_NOT_FOUND "Error\nMap data not found\n"
+# define MAP_UNEX_CHR "Error\nUnexpected character in map data\n"
+# define MAP_MULTI_SPAWN "Error\nMultiple spawn points\n"
+# define MAP_NO_SPAWN "Error\nNo spawn points\n"
+# define MAP_NOT_CLOSED "Error\nMap not closed\n"
+
+# define MAP_CHRS "01NSEW"
 
 typedef enum e_field
 {
@@ -44,6 +51,7 @@ typedef struct s_map	t_map;
 
 int		parse(t_map *map, char *raw);
 int		parse_metadata(t_map *map, char **raw);
+int		parse_map(t_map *map, char *raw);
 
 char	*eat_whitespace(char *str);
 char	*eat_spaces(char *str);

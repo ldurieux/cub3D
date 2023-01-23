@@ -37,6 +37,7 @@ int	map_load(t_map *map, char *path)
 	if (fd == -1)
 		return (ft_dprintf(2, OPEN_ERROR, path), 0);
 	raw = read_all(fd);
+	close(fd);
 	if (!raw)
 		return (ft_dprintf(2, BAD_ALLOC), 0);
 	res = parse(map, raw);
