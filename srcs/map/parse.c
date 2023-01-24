@@ -13,7 +13,7 @@
 #include "map.h"
 #include "map_internal.h"
 #include "mlx.h"
-#include "llx_paint_internal.h"
+#include "llx_win_internal.h"
 
 static int	skip_empty_lines(char **raw)
 {

@@ -11,11 +11,21 @@
 /* ************************************************************************** */
 
 #include "llx_paint.h"
-#include "llx_paint_internal.h"
+
+static int	is_in_bound(t_paint *paint, t_point p)
+{
+	const t_bounds	b = paint->bounds;
+
+	return (p.x >= b.x1 && p.x <= b.x2 && p.y >= b.y1 && p.y <= b.y2);
+}
 
 void	paint_pixel(t_paint *paint, t_point p)
 {
-	if (!paint || !is_in_bound(paint, p))
+	if (!paint)
+		return ;
+	p.x += paint->bounds.x1;
+	p.y += paint->bounds.y1;
+	if (!is_in_bound(paint, p))
 		return ;
 	paint->data[p.y * paint->width + p.x] = paint->pen.ucolor;
 }
@@ -28,6 +38,8 @@ void	paint_rect(t_paint *paint, t_rect rect)
 	if (!paint)
 		return ;
 	saved = paint->bounds;
+	rect.x += paint->bounds.x1;
+	rect.y += paint->bounds.y1;
 	res = bounds(point(rect.x, rect.y),
 			point(rect.x + rect.w - 1, rect.y + rect.h - 1));
 	if (saved.x1 > res.x1)

@@ -73,19 +73,56 @@ typedef struct s_img
 	int			height;
 }	t_img;
 
+typedef struct s_llx_win	t_llx_win;
+
+/**
+ * @brief this is an helper struct for drawing
+ *
+ * if bounds is set as follow: (t_bounds){point(10, 10), point(20, 20)},
+ * calling paint_pixel(point(0, 0)) will draw on point(10, 10)
+ * calling paint_pixel(point(10, 10)) will draw on point(20, 20)
+ * calling paint_pixel(point(11, 11)) will not draw anything
+ */
 typedef struct s_paint
 {
+	t_llx_win	*win;
 	uint32_t	*data;
 	uint32_t	width;
 	t_color		pen;
 	t_bounds	bounds;
 }	t_paint;
 
-typedef struct s_llx_win	t_llx_win;
-
+/**
+ * @brief initialize a paint struct
+ * @param paint
+ * @param window to paint on
+ * @return 0 if an error occured
+ */
 int			paint_init(t_paint *paint, t_llx_win *win);
+
+/**
+ * @brief set bounds of paint, if bounds is outside the window clip it
+ * @param paint
+ * @param bounds
+ * @return paint parameter
+ */
+t_paint		*paint_set_bounds(t_paint *paint, t_bounds bounds);
+
+/**
+ * @brief set color of paint, this is an utility function as the same can be
+ * done by setting paint->pen
+ * @param paint
+ * @param pen
+ * @return paint parameter
+ */
 t_paint		*paint_set_color(t_paint *paint, t_color pen);
 
+/**
+ * @brief draw a pixel. This function is slow only use it if you need a paint
+ * struct
+ * @param paint
+ * @param point
+ */
 void		paint_pixel(t_paint *paint, t_point p);
 void		paint_rect(t_paint *paint, t_rect rect);
 void		paint_fill(t_paint *paint);

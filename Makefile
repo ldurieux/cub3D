@@ -13,7 +13,7 @@ SRCS		= \
 			  srcs/llx/win/event_handler_1.c \
 			  srcs/llx/win/event_handler_2.c \
 			  srcs/llx/win/init.c \
-			  srcs/llx/win/is_key_down.c \
+			  srcs/llx/win/is_down.c \
 			  srcs/llx/paint/init.c \
 			  srcs/llx/paint/paint.c \
 			  srcs/llx/paint/types.c \

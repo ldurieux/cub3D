@@ -24,10 +24,10 @@ void	on_loop(t_llx_win *win, void *map_ptr)
 
 	map = map_ptr;
 	paint_init(&p, win);
-	p.bounds = bounds(point(0, 0), point(win->width - 1, h_2));
-	paint_fill(paint_set_color(&p, (t_color)map->colors[CEIL]));
-	p.bounds = bounds(point(0, h_2), point(win->width - 1, win->height - 1));
-	paint_fill(paint_set_color(&p, (t_color)map->colors[FLOOR]));
+	p.pen = (t_color)map->colors[CEIL];
+	paint_rect(&p, rect(point(0, 0), win->width, h_2));
+	p.pen = (t_color)map->colors[FLOOR];
+	paint_rect(&p, rect(point(0, h_2), win->width, h_2));
 }
 
 int	main(int argc, char **argv)
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 		return (ft_dprintf(2, "Error\nCouldn't start llx\n"));
 	if (!map_load(&map, argv[1], llx.mlx))
 		return (llx_destroy(&llx), map_free(&map), 1);
-	win = llx_win_new(&llx, 480, 360, "cub3D");
+	win = llx_win_new(&llx, 1366, 768, "cub3D");
 	if (!win)
 		return (llx_destroy(&llx), map_free(&map), 1);
 	llx.data = &map;

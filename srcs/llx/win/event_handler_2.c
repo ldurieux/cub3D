@@ -15,12 +15,14 @@
 
 void	llx_on_enter(t_llx_win *win)
 {
+	win->is_mouse_outside = 0;
 	if (win->on_enter)
 		win->on_enter(win);
 }
 
 void	llx_on_leave(t_llx_win *win)
 {
+	win->is_mouse_outside = 1;
 	if (win->on_leave)
 		win->on_leave(win);
 }

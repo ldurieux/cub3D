@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   llx_paint_internal.h                               :+:      :+:    :+:   */
+/*   is_key_down.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldurieux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 08:24:30 by ldurieux          #+#    #+#             */
-/*   Updated: 2023/01/24 08:24:31 by ldurieux         ###   ########lyon.fr   */
+/*   Created: 2023/01/24 01:27:05 by ldurieux          #+#    #+#             */
+/*   Updated: 2023/01/24 01:27:07 by ldurieux         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LLX_PAINT_INTERNAL_H
-# define LLX_PAINT_INTERNAL_H
+#include "llx_win.h"
 
-# include "mlx.h"
-
-typedef struct s_paint	t_paint;
-typedef struct s_point	t_point;
-
-typedef struct s_img_data
+int	llx_win_is_key_down(t_llx_win *win, int key)
 {
-	int	line_bytes;
-	int	pixel_bits;
-	int	endian;
-}	t_img_data;
+	int	i;
 
-int	is_in_bound(t_paint *paint, t_point p);
+	i = -1;
+	while (++i <= win->last_key_idx)
+		if (win->keys[i] == key)
+			return (1);
+	return (0);
+}
 
-#endif // LLX_PAINT_INTERNAL_H
+int	llx_win_is_btn_down(t_llx_win *win, int btn)
+{
+	int	i;
+
+	i = -1;
+	while (++i <= win->last_btn_idx)
+		if (win->btns[i] == btn)
+			return (1);
+	return (0);
+}

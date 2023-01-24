@@ -2,8 +2,8 @@ NO textures/cobble.xpm
 SO textures/dirt.xpm
 EA textures/gold.xpm
 WE textures/wood.xpm
-C 255, 255, 255
-F 0, 0, 0
+C 200, 200, 200
+F 50, 50, 50
 
 1111111111111
 1         1001

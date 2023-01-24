@@ -46,6 +46,7 @@ t_llx_win	*llx_win_new(t_llx *llx, int width, int height, char *title)
 	win->width = width;
 	win->height = height;
 	win->last_key_idx = -1;
+	win->last_btn_idx = -1;
 	win->cache = mlx_new_image(llx->mlx, width, height);
 	win->mlx_win = mlx_new_window(llx->mlx, width, height, title);
 	if (!win->mlx_win || !win->cache)
@@ -81,4 +82,16 @@ void	llx_win_delete(t_llx_win *win)
 	if (llx->win_count == 0)
 		llx_exit(llx, 0);
 	ft_memset(win, 0, sizeof(t_llx_win));
+}
+
+uint32_t	*llx_win_cache(t_llx_win *win)
+{
+	t_img_data	data;
+	uint32_t	*res;
+
+	if (!win)
+		return (NULL);
+	res = (uint32_t *)mlx_get_data_addr(win->cache, &data.pixel_bits,
+			&data.line_bytes, &data.endian);
+	return (res);
 }

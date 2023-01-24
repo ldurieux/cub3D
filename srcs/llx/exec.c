@@ -18,9 +18,7 @@ int	llx_exec(t_llx *llx)
 	return (0);
 }
 
-void	llx_exit(t_llx *llx, int exit_code)
+void	llx_exit(t_llx *llx, unsigned short exit_code)
 {
-	if (exit_code < 0)
-		exit_code *= -1;
-	llx->exit_code = exit_code;
+	llx->exit_code = (int)exit_code;
 }

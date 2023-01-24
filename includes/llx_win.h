@@ -15,77 +15,10 @@
 
 # include <stdint.h>
 # include "libft.h"
+# include "llx_paint.h"
 
 # define MAX_KEY_IDX 127
-
-enum e_event
-{
-	Evt_KeyPress			= 2,
-	Evt_KeyRelease			= 3,
-	Evt_BtnPress			= 4,
-	Evt_BtnRelease			= 5,
-	Evt_MotionNotify		= 6,
-	Evt_EnterNotify			= 7,
-	Evt_LeaveNotify			= 8,
-	Evt_FocusIn				= 9,
-	Evt_FocusOut			= 10,
-	Evt_KeymapNotify		= 11,
-	Evt_Expose				= 12,
-	Evt_GraphicsExpose		= 13,
-	Evt_NoExpose			= 14,
-	Evt_VisibilityNotify	= 15,
-	Evt_CreateNotify		= 16,
-	Evt_DestroyNotify		= 17,
-	Evt_UnmapNotify			= 18,
-	Evt_MapNotify			= 19,
-	Evt_MapRequest			= 20,
-	Evt_ReparentNotify		= 21,
-	Evt_ConfigureNotify		= 22,
-	Evt_ConfigureRequest	= 23,
-	Evt_GravityNotify		= 24,
-	Evt_ResizeRequest		= 25,
-	Evt_CirculateNotify		= 26,
-	Evt_CirculateRequest	= 27,
-	Evt_PropertyNotify		= 28,
-	Evt_SelectionClear		= 29,
-	Evt_SelectionRequest	= 30,
-	Evt_SelectionNotify		= 31,
-	Evt_ColormapNotify		= 32,
-	Evt_ClientMessage		= 33,
-	Evt_MappingNotify		= 34,
-	Evt_GenericEvent		= 35,
-	Evt_LASTEvent			= 36,
-};
-
-enum e_mask
-{
-	Msk_NoEvent					= 0x0,
-	Msk_KeyPress				= 0x1,
-	Msk_KeyRelease				= 0x2,
-	Msk_BtnPress				= 0x4,
-	Msk_BtnRelease				= 0x8,
-	Msk_EnterWindow				= 0x10,
-	Msk_LeaveWindow				= 0x20,
-	Msk_PointerMotion			= 0x40,
-	Msk_PointerMotionHint		= 0x80,
-	Msk_Button1Motion			= 0x100,
-	Msk_Button2Motion			= 0x200,
-	Msk_Button3Motion			= 0x400,
-	Msk_Button4Motion			= 0x800,
-	Msk_Button5Motion			= 0x1000,
-	Msk_ButtonMotion			= 0x2000,
-	Msk_KeymapState				= 0x4000,
-	Msk_Exposure				= 0x8000,
-	Msk_VisibilityChange		= 0x10000,
-	Msk_StructureNotify			= 0x20000,
-	Msk_ResizeRedirect			= 0x40000,
-	Msk_SubstructureNotify		= 0x80000,
-	Msk_SubstructureRedirect	= 0x100000,
-	Msk_FocusChange				= 0x200000,
-	Msk_PropertyChange			= 0x400000,
-	Msk_ColormapChange			= 0x800000,
-	Msk_OwnerGrabButton			= 0x1000000,
-};
+# define MAX_BTN_IDX 16
 
 # ifdef __gnu_linux__
 
@@ -133,6 +66,14 @@ enum e_key
 	LlxKey_7 = 232,
 	LlxKey_8 = 95,
 	LlxKey_9 = 231,
+};
+
+enum e_btn {
+	LlxBtn_Left = 1,
+	LlxBtn_Right = 2,
+	LlxBtn_Middle = 3,
+	LlxBtn_WheelUp = 4,
+	LlxBtn_WheelDown = 5,
 };
 # else
 
@@ -182,11 +123,24 @@ enum e_key {
 	LlxKey_Escape = 53,
 };
 
+enum e_btn {
+	LlxBtn_Left = 1,
+	LlxBtn_Right = 2,
+	LlxBtn_Middle = 3,
+	LlxBtn_WheelUp = 4,
+	LlxBtn_WheelDown = 5,
+};
+
 # endif
 
 typedef struct s_llx		t_llx;
 typedef struct s_llx_win	t_llx_win;
 
+/**
+ * @brief contains information on a window
+ *
+ * each function pointer may be set by the user
+ */
 typedef struct s_llx_win
 {
 	void	*mlx_win;
@@ -194,22 +148,63 @@ typedef struct s_llx_win
 	void	*cache;
 	void	(*on_key_down)(t_llx_win *win, int keycode);
 	void	(*on_key_up)(t_llx_win *win, int keycode);
-	void	(*on_mouse_down)(t_llx_win *win, int button, int x, int y);
-	void	(*on_mouse_up)(t_llx_win *win, int button, int x, int y);
-	void	(*on_mouse_move)(t_llx_win *win, int x, int y);
+	void	(*on_mouse_down)(t_llx_win *win, int button, t_point pos);
+	void	(*on_mouse_up)(t_llx_win *win, int button, t_point pos);
+	void	(*on_mouse_move)(t_llx_win *win, t_point pos);
 	void	(*on_enter)(t_llx_win *win);
 	void	(*on_leave)(t_llx_win *win);
 	void	(*on_close)(t_llx_win *win);
 	void	(*on_loop)(t_llx_win *win, void *data);
 	int		keys[MAX_KEY_IDX + 1];
+	int		btns[MAX_BTN_IDX + 1];
+	t_point	mouse_pos;
 	int		width;
 	int		height;
 	int		last_key_idx;
+	int		last_btn_idx;
+	uint8_t	is_mouse_outside;
 	uint8_t	id;
 }	t_llx_win;
 
+/**
+ * @brief instantiate a new window, the return value MUST NOT be stored
+ * outside of the function call scope as the address may change later
+ * @param llx pointer
+ * @param window width
+ * @param window height
+ * @param window title
+ * @return pointer to the window, NULL if an error occured
+ */
 t_llx_win	*llx_win_new(t_llx *llx, int width, int height, char *title);
+
+/**
+ * @brief close and free a window, this function does not trigger
+ * llx_win.on_close
+ * @param window ptr
+ */
 void		llx_win_delete(t_llx_win *win);
+
+/**
+ * @brief check if a key is being held down
+ * @param window ptr
+ * @param key
+ * @return 0 if the key is NOT down
+ */
 int			llx_win_is_key_down(t_llx_win *win, int key);
+
+/**
+ * @brief check if a button is being held down
+ * @param window ptr
+ * @param button
+ * @return 0 if the button is NOT down
+ */
+int			llx_win_is_btn_down(t_llx_win *win, int btn);
+
+/**
+ * @brief get the pixel array of the window
+ * @param window ptr
+ * @return 0 if an error occured
+ */
+uint32_t	*llx_win_cache(t_llx_win *win);
 
 #endif // LLX_WIN_H
