@@ -20,6 +20,7 @@
 
 # include "libft.h"
 # include "ft_printf.h"
+# include "llx_paint.h"
 
 # define NORTH 0
 # define SOUTH 1
@@ -34,13 +35,7 @@
 # define OPEN_DOOR 3
 # define CLOSED_DOOR 4
 
-typedef struct s_color
-{
-	uint8_t	a;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-}	t_color;
+typedef struct s_img	t_img;
 
 typedef struct s_spawn
 {
@@ -52,15 +47,15 @@ typedef struct s_spawn
 typedef struct s_map
 {
 	char	*textures_path[4];
-	char	*textures_data[4];
-	t_color	colors[2];
+	t_img	textures[4];
+	t_rgba	colors[2];
 	size_t	width;
 	size_t	height;
 	t_spawn	spawn;
 	uint8_t	*data;
 }	t_map;
 
-int		map_load(t_map *map, char *path);
+int		map_load(t_map *map, char *path, void *mlx);
 void	map_free(t_map *map);
 
 #endif // MAP_H

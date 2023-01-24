@@ -12,6 +12,8 @@
 
 #include "map.h"
 #include "map_internal.h"
+#include "mlx.h"
+#include "llx_paint_internal.h"
 
 static int	skip_empty_lines(char **raw)
 {
@@ -39,8 +41,8 @@ static int	skip_empty_lines(char **raw)
 
 static void	get_map_size(t_map *map, char *raw)
 {
-	size_t	curr_width;
-	int		empty;
+	size_t		curr_width;
+	int			empty;
 
 	curr_width = 0;
 	empty = 1;
@@ -63,7 +65,29 @@ static void	get_map_size(t_map *map, char *raw)
 	}
 }
 
-int	parse(t_map *map, char *raw)
+static int	parse_textures(t_map *map, void *mlx)
+{
+	int			idx;
+	t_img		*tex;
+	t_img_data	data;
+
+	idx = -1;
+	while (++idx < 4)
+	{
+		tex = map->textures + idx;
+		tex->addr = mlx_xpm_file_to_image(mlx, map->textures_path[idx],
+				&tex->width, &tex->height);
+		if (!tex->addr)
+			return (ft_dprintf(2, XPM_INVALID), 0);
+		tex->data = (uint32_t *)mlx_get_data_addr(tex->addr, &data.pixel_bits,
+				&data.line_bytes, &data.endian);
+		free(map->textures_path[idx]);
+		map->textures_path[idx] = NULL;
+	}
+	return (1);
+}
+
+int	parse(t_map *map, char *raw, void *mlx)
 {
 	if (!parse_metadata(map, &raw))
 		return (0);
@@ -76,5 +100,7 @@ int	parse(t_map *map, char *raw)
 	if (!map->data)
 		return (ft_dprintf(2, BAD_ALLOC), 0);
 	ft_memset(map->data, 0, sizeof(uint8_t) * map->width * map->height);
-	return (parse_map(map, raw));
+	if (!parse_map(map, raw))
+		return (0);
+	return (parse_textures(map, mlx));
 }

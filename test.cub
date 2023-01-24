@@ -1,0 +1,19 @@
+NO textures/cobble.xpm
+SO textures/dirt.xpm
+EA textures/gold.xpm
+WE textures/wood.xpm
+C 255, 255, 255
+F 0, 0, 0
+
+1111111111111
+1         1001
+1     1111101
+1    100000001
+1     1110N01
+1       1001
+111111111011
+1000000000001
+10111111111111
+1000001
+10101101
+11111111111

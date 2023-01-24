@@ -78,18 +78,3 @@ char	*read_all(int fd)
 	}
 	return (read_all_res(list, buffer));
 }
-
-char	*read_texture(char *path)
-{
-	int		fd;
-	char	*res;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (ft_dprintf(2, OPEN_ERROR, path), NULL);
-	res = read_all(fd);
-	close(fd);
-	if (!res)
-		return (ft_dprintf(2, BAD_ALLOC), NULL);
-	return (res);
-}

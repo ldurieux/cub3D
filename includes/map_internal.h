@@ -34,6 +34,7 @@
 # define MAP_MULTI_SPAWN "Error\nMultiple spawn points\n"
 # define MAP_NO_SPAWN "Error\nNo spawn points\n"
 # define MAP_NOT_CLOSED "Error\nMap not closed\n"
+# define XPM_INVALID "Error\nInvalid xpm\n"
 
 # define MAP_CHRS "01NSEW"
 
@@ -49,7 +50,7 @@ typedef enum e_field
 
 typedef struct s_map	t_map;
 
-int		parse(t_map *map, char *raw);
+int		parse(t_map *map, char *raw, void *mlx);
 int		parse_metadata(t_map *map, char **raw);
 int		parse_map(t_map *map, char *raw);
 
@@ -58,6 +59,5 @@ char	*eat_spaces(char *str);
 int		eat_inter_color(char **str);
 
 char	*read_all(int fd);
-char	*read_texture(char *path);
 
 #endif // MAP_INTERNAL_H

@@ -11,14 +11,41 @@
 /* ************************************************************************** */
 
 #include "map.h"
+#include "llx.h"
+#include "llx_win.h"
+#include "llx_paint.h"
+#include "ft_printf.h"
+
+void	on_loop(t_llx_win *win, void *map_ptr)
+{
+	t_map			*map;
+	t_paint			p;
+	const int16_t	h_2 = (win->height - 1) >> 1;
+
+	map = map_ptr;
+	paint_init(&p, win);
+	p.bounds = bounds(point(0, 0), point(win->width - 1, h_2));
+	paint_fill(paint_set_color(&p, (t_color)map->colors[CEIL]));
+	p.bounds = bounds(point(0, h_2), point(win->width - 1, win->height - 1));
+	paint_fill(paint_set_color(&p, (t_color)map->colors[FLOOR]));
+}
 
 int	main(int argc, char **argv)
 {
-	t_map	map;
+	t_map		map;
+	t_llx		llx;
+	t_llx_win	*win;
 
 	if (argc != 2)
 		return (ft_dprintf(2, "Error\nInvalid arguments count\n"), 0);
-	if (!map_load(&map, argv[1]))
-		return (map_free(&map), 1);
-	return (0);
+	if (!llx_init(&llx))
+		return (ft_dprintf(2, "Error\nCouldn't start llx\n"));
+	if (!map_load(&map, argv[1], llx.mlx))
+		return (llx_destroy(&llx), map_free(&map), 1);
+	win = llx_win_new(&llx, 480, 360, "cub3D");
+	if (!win)
+		return (llx_destroy(&llx), map_free(&map), 1);
+	llx.data = &map;
+	win->on_loop = on_loop;
+	return (llx_exec(&llx));
 }

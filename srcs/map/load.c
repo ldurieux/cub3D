@@ -24,7 +24,7 @@ static int	ends_with(char *str, char *end)
 	return (ft_strcmp(str, end) == 0);
 }
 
-int	map_load(t_map *map, char *path)
+int	map_load(t_map *map, char *path, void *mlx)
 {
 	int		fd;
 	char	*raw;
@@ -40,7 +40,7 @@ int	map_load(t_map *map, char *path)
 	close(fd);
 	if (!raw)
 		return (ft_dprintf(2, BAD_ALLOC), 0);
-	res = parse(map, raw);
+	res = parse(map, raw, mlx);
 	free(raw);
 	return (res);
 }
@@ -51,9 +51,6 @@ void	map_free(t_map *map)
 
 	idx = -1;
 	while (++idx < 4)
-	{
 		free(map->textures_path[idx]);
-		free(map->textures_data[idx]);
-	}
 	free(map->data);
 }

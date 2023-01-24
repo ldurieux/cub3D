@@ -26,7 +26,7 @@ static int	get_color(uint8_t *color, char **raw)
 	return (1);
 }
 
-static int	parse_color(t_color *color, char **raw)
+static int	parse_color(t_rgba *color, char **raw)
 {
 	char	*cpy;
 
@@ -109,29 +109,28 @@ static int	read_field(t_map *map, char **raw, uint32_t *fields)
 
 int	parse_metadata(t_map *map, char **raw)
 {
-	char		*cpy;
 	int			remaining;
 	uint32_t	fields;
 	int			idx;
+	int			fd;
 
 	fields = 0;
-	cpy = *raw;
 	remaining = 7;
 	while (--remaining > 0)
 	{
-		cpy = eat_whitespace(cpy);
-		if (ft_isdigit(*cpy) || *cpy == '\0')
+		*raw = eat_whitespace(*raw);
+		if (ft_isdigit(**raw) || **raw == '\0')
 			return (ft_dprintf(2, METADATA_MISSING), 0);
-		if (!read_field(map, &cpy, &fields))
+		if (!read_field(map, raw, &fields))
 			return (0);
 	}
-	*raw = cpy;
 	idx = -1;
 	while (++idx < 4)
 	{
-		map->textures_data[idx] = read_texture(map->textures_path[idx]);
-		if (!map->textures_data[idx])
-			return (0);
+		fd = open(map->textures_path[idx], O_RDONLY);
+		if (fd == -1)
+			return (ft_dprintf(2, OPEN_ERROR, map->textures_path[idx]), 0);
+		close(fd);
 	}
 	return (1);
 }
