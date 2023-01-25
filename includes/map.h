@@ -22,10 +22,10 @@
 # include "ft_printf.h"
 # include "llx_paint.h"
 
-# define NORTH 0
-# define EAST 1
-# define SOUTH 2
-# define WEST 3
+# define EAST 0
+# define NORTH 1
+# define WEST 2
+# define SOUTH 3
 
 # define FLOOR 0
 # define CEIL 1

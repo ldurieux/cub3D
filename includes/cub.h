@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <math.h>
 # include "map.h"
+# include "matrix.h"
 # include "llx.h"
 # include "llx_win.h"
 # include "llx_paint.h"
