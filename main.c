@@ -10,29 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include "llx.h"
-#include "llx_win.h"
-#include "llx_paint.h"
+#include "cub.h"
 #include "ft_printf.h"
 
-void	on_loop(t_llx_win *win, void *map_ptr)
+static void	on_loop(t_llx_win *win, void *map_ptr)
 {
-	t_map			*map;
-	t_paint			p;
-	const int16_t	h_2 = (win->height - 1) >> 1;
+	t_cub		*cub;
+	t_paint		p;
 
-	map = map_ptr;
+	cub = map_ptr;
+	cub_on_key(cub, win);
 	paint_init(&p, win);
-	p.pen = (t_color)map->colors[CEIL];
-	paint_rect(&p, rect(point(0, 0), win->width, h_2));
-	p.pen = (t_color)map->colors[FLOOR];
-	paint_rect(&p, rect(point(0, h_2), win->width, h_2));
+	cub_draw_background(cub, &p);
+	cub_draw_game(cub, &p);
+	paint_set_bounds(&p, cub->mm_bounds);
+	cub_draw_minimap(cub, &p);
+}
+
+static void	on_exit(t_llx *llx)
+{
+	t_cub	*cub;
+
+	cub = llx->data;
+	cub_free(cub);
 }
 
 int	main(int argc, char **argv)
 {
-	t_map		map;
+	t_cub		cub;
 	t_llx		llx;
 	t_llx_win	*win;
 
@@ -40,12 +45,13 @@ int	main(int argc, char **argv)
 		return (ft_dprintf(2, "Error\nInvalid arguments count\n"), 0);
 	if (!llx_init(&llx))
 		return (ft_dprintf(2, "Error\nCouldn't start llx\n"));
-	if (!map_load(&map, argv[1], llx.mlx))
-		return (llx_destroy(&llx), map_free(&map), 1);
-	win = llx_win_new(&llx, 1366, 768, "cub3D");
+	if (!cub_init(&cub, argv[1], llx.mlx))
+		return (llx_destroy(&llx), cub_free(&cub), 1);
+	win = llx_win_new(&llx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	if (!win)
-		return (llx_destroy(&llx), map_free(&map), 1);
-	llx.data = &map;
+		return (llx_destroy(&llx), cub_free(&cub), 1);
+	llx.data = &cub;
+	llx.on_exit = on_exit;
 	win->on_loop = on_loop;
 	return (llx_exec(&llx));
 }

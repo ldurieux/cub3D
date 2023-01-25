@@ -33,9 +33,22 @@ t_paint	*paint_set_bounds(t_paint *paint, t_bounds bounds)
 		return (NULL);
 	bounds.x1 = (bounds.x1 >= 0) * bounds.x1;
 	bounds.y1 = (bounds.y1 >= 0) * bounds.y1;
-	bounds.x2 = (bounds.x2 >= paint->win->width) * (paint->win->width - 1);
-	bounds.y2 = (bounds.y2 >= paint->win->height) * (paint->win->height - 1);
+	if (bounds.x2 >= paint->win->width)
+		bounds.x2 = paint->win->width - 1;
+	if (bounds.y2 >= paint->win->height)
+		bounds.y2 = paint->win->height - 1;
 	paint->bounds = bounds;
+	return (paint);
+}
+
+t_paint	*paint_reset_bounds(t_paint *paint)
+{
+	if (!paint)
+		return (NULL);
+	paint->bounds.x1 = 0;
+	paint->bounds.y1 = 0;
+	paint->bounds.x2 = paint->win->width - 1;
+	paint->bounds.y2 = paint->win->height - 1;
 	return (paint);
 }
 

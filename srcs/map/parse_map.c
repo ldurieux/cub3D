@@ -26,16 +26,16 @@ static int	parse_line(t_map *map, size_t line_idx, char *raw)
 			break ;
 		if (!ft_strchr(MAP_CHRS, raw[idx]))
 			return (ft_dprintf(2, MAP_UNEX_CHR), 0);
-		if (raw[idx] == '0' || raw[idx] == '1')
+		if (raw[idx] == '0' || raw[idx] == '1' || raw[idx] == '2')
 			map->data[line_idx * map->width + idx] = raw[idx] - '0' + 1;
-		if (raw[idx] == '0' || raw[idx] == '1')
+		if (raw[idx] == '0' || raw[idx] == '1' || raw[idx] == '2')
 			continue ;
 		if (map->spawn.x != 0 && map->spawn.y != 0)
 			return (ft_dprintf(2, MAP_MULTI_SPAWN), 0);
 		map->data[line_idx * map->width + idx] = EMPTY;
 		map->spawn.x = idx;
 		map->spawn.y = line_idx;
-		map->spawn.direction = (raw[idx] == 'N') * NORTH
+		map->spawn.dir = (raw[idx] == 'N') * NORTH
 			+ (raw[idx] == 'S') * SOUTH + (raw[idx] == 'E') * EAST
 			+ (raw[idx] == 'W') * WEST;
 	}
@@ -50,22 +50,22 @@ static int	check_borders(t_map *map)
 	y = 0;
 	x = (size_t)-1;
 	while (++x < map->width)
-		if (map->data[y * map->width + x] == EMPTY)
+		if (map->data[y * map->width + x] & EMPTY)
 			return (0);
 	y = map->height - 1;
 	x = (size_t)-1;
 	while (++x < map->width)
-		if (map->data[y * map->width + x] == EMPTY)
+		if (map->data[y * map->width + x] & EMPTY)
 			return (0);
 	y = (size_t)-1;
 	x = 0;
 	while (++y < map->height)
-		if (map->data[y * map->width + x] == EMPTY)
+		if (map->data[y * map->width + x] & EMPTY)
 			return (0);
 	y = (size_t)-1;
 	x = map->width - 1;
 	while (++y < map->height)
-		if (map->data[y * map->width + x] == EMPTY)
+		if (map->data[y * map->width + x] & EMPTY)
 			return (0);
 	return (1);
 }
@@ -83,7 +83,7 @@ static int	is_closed(t_map *map)
 		x = 0;
 		while (++x < map->width - 1)
 		{
-			if (map->data[y * map->width + x] != EMPTY)
+			if (!(map->data[y * map->width + x] & EMPTY))
 				continue ;
 			if (map->data[y * map->width + (x - 1)] == 0
 				|| map->data[y * map->width + (x + 1)] == 0

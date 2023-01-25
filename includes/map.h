@@ -23,8 +23,8 @@
 # include "llx_paint.h"
 
 # define NORTH 0
-# define SOUTH 1
-# define EAST 2
+# define EAST 1
+# define SOUTH 2
 # define WEST 3
 
 # define FLOOR 0
@@ -32,8 +32,8 @@
 
 # define EMPTY 1
 # define WALL 2
-# define OPEN_DOOR 3
-# define CLOSED_DOOR 4
+# define CLOSED_DOOR 3
+# define OPEN_DOOR 4
 
 typedef struct s_img	t_img;
 
@@ -41,7 +41,7 @@ typedef struct s_spawn
 {
 	size_t	x;
 	size_t	y;
-	uint8_t	direction;
+	uint8_t	dir;
 }	t_spawn;
 
 typedef struct s_map

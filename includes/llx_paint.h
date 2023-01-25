@@ -107,6 +107,7 @@ int			paint_init(t_paint *paint, t_llx_win *win);
  * @return paint parameter
  */
 t_paint		*paint_set_bounds(t_paint *paint, t_bounds bounds);
+t_paint		*paint_reset_bounds(t_paint *paint);
 
 /**
  * @brief set color of paint, this is an utility function as the same can be
