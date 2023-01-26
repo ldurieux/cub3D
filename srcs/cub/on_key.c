@@ -26,13 +26,28 @@ static void	rotate(t_cub *cub, t_llx_win *win)
 
 static void	set_pos(t_map *map, t_player *player, t_vec2 move)
 {
-	(void)map;
-	move.y += player->y;
+	uint8_t	dest;
+
 	move.x += player->x;
-	if (map->data[(int)move.y * map->width + (int)move.x] == WALL)
-		return ;
-	if (map->data[(int)move.y * map->width + (int)move.x] == 0)
-		return ;
+	move.y += player->y;
+	if ((int)move.x != (int)player->x || (int)move.y != (int)player->y)
+	{
+		if ((int)move.x != (int)player->x && (int)move.y != (int)player->y)
+		{
+			dest = map->data[((int)move.y) * map->width + (int)player->x];
+			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+				return ;
+			dest = map->data[((int)player->y) * map->width + (int)move.x];
+			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+				return ;
+		}
+		else
+		{
+			dest = map->data[(int)move.y * map->width + (int)move.x];
+			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+				return ;
+		}
+	}
 	player->x = move.x;
 	player->y = move.y;
 }
