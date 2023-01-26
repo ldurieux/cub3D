@@ -23,6 +23,7 @@ SRCS		= \
 			  srcs/cub/draw_minimap.c \
 			  srcs/cub/init.c \
 			  srcs/cub/on_key.c \
+			  srcs/cub/on_mouse.c \
 			  srcs/matrix/matrices.c \
 			  srcs/matrix/mul.c \
 

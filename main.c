@@ -20,6 +20,7 @@ static void	on_loop(t_llx_win *win, void *map_ptr)
 
 	cub = map_ptr;
 	cub_on_key(cub, win);
+	cub_on_mouse(cub, win);
 	paint_init(&p, win);
 	cub_draw_background(cub, &p);
 	cub_draw_game(cub, &p);

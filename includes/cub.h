@@ -47,12 +47,14 @@ typedef struct s_cub
 	t_map		map;
 	t_player	player;
 	t_bounds	mm_bounds;
+	t_point		last_mouse_pos;
 }	t_cub;
 
 int		cub_init(t_cub *cub, char *file, void *mlx);
 void	cub_free(t_cub *cub);
 
 void	cub_on_key(t_cub *cub, t_llx_win *win);
+void	cub_on_mouse(t_cub *cub, t_llx_win *win);
 
 void	cub_draw_background(t_cub *cub, t_paint *paint);
 void	cub_draw_game(t_cub *cub, t_paint *paint);
