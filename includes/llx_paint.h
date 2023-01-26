@@ -13,7 +13,9 @@
 #ifndef LLX_PAINT_H
 # define LLX_PAINT_H
 
+# include <stdlib.h>
 # include <stdint.h>
+# include <math.h>
 
 enum e_color
 {
@@ -125,6 +127,7 @@ t_paint		*paint_set_color(t_paint *paint, t_color pen);
  * @param point
  */
 void		paint_pixel(t_paint *paint, t_point p);
+void		paint_line(t_paint *paint, t_point p1, t_point p2);
 void		paint_rect(t_paint *paint, t_rect rect);
 void		paint_fill(t_paint *paint);
 

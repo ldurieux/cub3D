@@ -16,6 +16,16 @@
 # define WIN_WIDTH 1366
 # define WIN_HEIGHT 768
 
+# define MM_BG 0x00aaaaaa
+# define MM_PLAYER 0x004499ff
+# define MM_RANGE 50.0f
+
+//FOV = 90.0f / 180.0f * M_PI
+# define FOV 1.57079632679
+
+# define ROT_SPEED 0.05f
+# define MOVE_SPEED 0.1f
+
 # include <stddef.h>
 # include <math.h>
 # include "map.h"

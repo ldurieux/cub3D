@@ -12,8 +12,6 @@
 
 #include "cub.h"
 
-#define ROT_SPEED 0.05f
-#define MOVE_SPEED 0.1f
 #define HALF_SQRT 0.70710678118f
 
 static void	rotate(t_cub *cub, t_llx_win *win)

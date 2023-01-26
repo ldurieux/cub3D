@@ -16,6 +16,7 @@ SRCS		= \
 			  srcs/llx/win/is_down.c \
 			  srcs/llx/paint/init.c \
 			  srcs/llx/paint/paint.c \
+			  srcs/llx/paint/paint_line.c \
 			  srcs/llx/paint/types.c \
 			  srcs/cub/draw_background.c \
 			  srcs/cub/draw_game.c \
