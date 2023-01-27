@@ -12,16 +12,7 @@
 
 #include "cub.h"
 #include "ft_printf.h"
-
-
-
-
-
 #include <stdio.h>
-
-
-
-
 
 static void	on_loop(t_llx_win *win, void *map_ptr)
 {

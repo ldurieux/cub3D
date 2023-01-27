@@ -14,12 +14,21 @@
 
 void	cub_draw_background(t_cub *cub, t_paint *paint)
 {
-	const int16_t	half_height = paint->win->height >> 1;
+	uint32_t		*data;
 	t_map			*map;
+	uint32_t		color;
+	size_t			idx;
+	size_t			end;
 
+	data = paint->data;
 	map = &cub->map;
-	paint_set_color(paint, (t_color)map->colors[CEIL]);
-	paint_rect(paint, rect(point(0, 0), INT16_MAX, half_height));
-	paint_set_color(paint, (t_color)map->colors[FLOOR]);
-	paint_rect(paint, rect(point(0, half_height), INT16_MAX, half_height));
+	color = ((t_color)map->colors[CEIL]).ucolor;
+	idx = (size_t)-1;
+	end = WIN_WIDTH * WIN_HEIGHT / 2;
+	while (++idx < end)
+		data[idx] = color;
+	color = ((t_color)map->colors[FLOOR]).ucolor;
+	end <<= 1;
+	while (++idx < end)
+		data[idx] = color;
 }
