@@ -21,6 +21,7 @@ SRCS		= \
 			  srcs/cub/draw_background.c \
 			  srcs/cub/draw_game.c \
 			  srcs/cub/draw_minimap.c \
+			  srcs/cub/draw_wall.c \
 			  srcs/cub/init.c \
 			  srcs/cub/on_key.c \
 			  srcs/cub/on_mouse.c \
