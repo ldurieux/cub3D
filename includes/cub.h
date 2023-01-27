@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldurieux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 00:18:03 by ldurieux          #+#    #+#             */
-/*   Updated: 2023/01/25 00:18:04 by ldurieux         ###   ########lyon.fr   */
+/*   Updated: 2023/01/27 16:31:11 by tquere           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# define WIN_WIDTH 1366
-# define WIN_HEIGHT 768
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 
 # define MM_BG 0x00aaaaaa
 # define MM_PLAYER 0x004499ff
@@ -38,8 +38,11 @@ typedef struct s_player
 {
 	float	x;
 	float	y;
-	float	height;
 	float	dir;
+	float	dir_x;
+	float	dir_y;
+	float	pla_x;
+	float	pla_y;
 }	t_player;
 
 typedef struct s_cub

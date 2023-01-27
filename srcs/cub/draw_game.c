@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldurieux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 01:05:57 by ldurieux          #+#    #+#             */
-/*   Updated: 2023/01/25 01:05:59 by ldurieux         ###   ########lyon.fr   */
+/*   Updated: 2023/01/27 14:27:41 by tquere           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include "raycast.h"
 
 void	cub_draw_game(t_cub *cub, t_paint *paint)
 {
-	(void)cub;
-	(void)paint;
+	raycast(cub, paint);
 }

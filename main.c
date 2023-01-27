@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldurieux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:50:28 by ldurieux          #+#    #+#             */
-/*   Updated: 2023/01/23 16:50:29 by ldurieux         ###   ########lyon.fr   */
+/*   Updated: 2023/01/27 16:23:34 by tquere           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "ft_printf.h"
+
+
+
+
+
+#include <stdio.h>
+
+
+
+
 
 static void	on_loop(t_llx_win *win, void *map_ptr)
 {

@@ -26,6 +26,7 @@ SRCS		= \
 			  srcs/cub/on_mouse.c \
 			  srcs/matrix/matrices.c \
 			  srcs/matrix/mul.c \
+			  srcs/raycast/raycast.c \
 
 HEADERS		= \
 			  includes \
