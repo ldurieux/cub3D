@@ -66,6 +66,7 @@ enum e_key
 	LlxKey_7 = 232,
 	LlxKey_8 = 95,
 	LlxKey_9 = 231,
+	LlxKey_Escape = 65307,
 };
 
 enum e_btn {

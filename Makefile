@@ -1,3 +1,5 @@
+UNAME		= $(shell uname)
+
 NAME		= cub3D
 
 SRCS		= \
@@ -35,16 +37,30 @@ HEADERS		= \
 
 LIB_NAMES	= \
 			  libft \
-			  libmlx \
 			  
 DYN_LIBS	= \
 			  m \
-			  #Xext \
-			  #X11 \
 
 FRAMEWORKS	= \
 			  OpenGL \
 			  AppKit \
+
+ifeq ($(UNAME), Linux)
+
+LIB_NAMES += libmlx_Linux
+
+DYN_LIBS	+= \
+			  Xext \
+			  X11 \
+
+FRAMEWORKS = 
+
+TEST = $(shell echo $(LIB_HEADERS) 1>&2)
+else
+
+LIB_NAMES += libmlx
+
+endif
 
 DYN_LIBS	:= $(addprefix -l, $(DYN_LIBS))
 FRAMEWORKS	:= $(addprefix -framework , $(FRAMEWORKS))

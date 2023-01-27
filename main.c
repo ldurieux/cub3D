@@ -38,7 +38,7 @@ static void	on_loop(t_llx_win *win, void *map_ptr)
 	cub_draw_minimap(cub, &p);
 }
 
-static void	on_exit(t_llx *llx)
+static void	cub_on_exit(t_llx *llx)
 {
 	t_cub	*cub;
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 	if (!win)
 		return (llx_destroy(&llx), cub_free(&cub), 1);
 	llx.data = &cub;
-	llx.on_exit = on_exit;
+	llx.on_exit = cub_on_exit;
 	win->on_loop = on_loop;
 	return (llx_exec(&llx));
 }
