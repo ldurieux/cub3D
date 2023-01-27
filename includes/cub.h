@@ -50,6 +50,14 @@ typedef struct s_cub
 	t_point		last_mouse_pos;
 }	t_cub;
 
+typedef struct s_wall
+{
+	int		face_idx;
+	float	face_x;
+	float	height;
+	int		draw_x;
+}	t_wall;
+
 int		cub_init(t_cub *cub, char *file, void *mlx);
 void	cub_free(t_cub *cub);
 
@@ -59,5 +67,7 @@ void	cub_on_mouse(t_cub *cub, t_llx_win *win);
 void	cub_draw_background(t_cub *cub, t_paint *paint);
 void	cub_draw_game(t_cub *cub, t_paint *paint);
 void	cub_draw_minimap(t_cub *cub, t_paint *paint);
+
+void	cub_draw_wall(t_map *map, t_paint *paint, t_wall wall);
 
 #endif // CUB_H
