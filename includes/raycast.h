@@ -6,7 +6,7 @@
 /*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:45:29 by tquere            #+#    #+#             */
-/*   Updated: 2023/01/27 17:50:25 by tquere           ###   ########.fr       */
+/*   Updated: 2023/01/27 18:19:24 by tquere           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 typedef struct s_ray
 {
-	float cam_x;
-	float ray_dir_x;
-	float ray_dir_y;
+	float	cam_x;
+	float	ray_dir_x;
+	float	ray_dir_y;
 
 	int		cur_box_x;
 	int		cur_box_y;
@@ -32,7 +32,7 @@ typedef struct s_ray
 	float	step_y;
 	float	wall_dist;
 
-	float 	line_height;
+	float	line_height;
 	int		bot_pix;
 	int		top_pix;
 
@@ -45,5 +45,7 @@ typedef struct s_ray
 
 
 void	raycast(t_cub *cub, t_paint *paint);
+void	get_ray(t_cub *cub, int x, t_ray *ray);
+void	get_vector(t_cub *cub);
 
 #endif

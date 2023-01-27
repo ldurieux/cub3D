@@ -28,6 +28,7 @@ SRCS		= \
 			  srcs/matrix/matrices.c \
 			  srcs/matrix/mul.c \
 			  srcs/raycast/raycast.c \
+			  srcs/raycast/create_ray.c \
 
 HEADERS		= \
 			  includes \
