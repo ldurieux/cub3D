@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldurieux <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:15:03 by ldurieux          #+#    #+#             */
-/*   Updated: 2023/01/27 16:15:04 by ldurieux         ###   ########lyon.fr   */
+/*   Updated: 2023/01/27 18:27:32 by tquere           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	cub_draw_wall(t_map *map, t_paint *paint, t_wall wall)
 			break ;
 		i_pos.y = img_height * ((float)(w_pos.y - (WIN_HEIGHT - y_end))
 			/ (WIN_HEIGHT * wall.height));
-		if (i_pos.y > 10 || i_pos.y < 0)
+		if (i_pos.y > img->height || i_pos.y < 0)
 			continue ;
 		paint->data[w_pos.y * paint->width + w_pos.x] = img->data[i_pos.y
 			* img->width + i_pos.x];

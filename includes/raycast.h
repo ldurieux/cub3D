@@ -6,7 +6,7 @@
 /*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:45:29 by tquere            #+#    #+#             */
-/*   Updated: 2023/01/27 18:19:24 by tquere           ###   ########.fr       */
+/*   Updated: 2023/01/27 18:26:20 by tquere           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_ray
 	int		type_hit;
 
 }	t_ray;
-
 
 void	raycast(t_cub *cub, t_paint *paint);
 void	get_ray(t_cub *cub, int x, t_ray *ray);

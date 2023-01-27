@@ -6,7 +6,7 @@
 /*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:12:57 by tquere            #+#    #+#             */
-/*   Updated: 2023/01/27 18:19:13 by tquere           ###   ########.fr       */
+/*   Updated: 2023/01/27 18:20:48 by tquere           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	get_dist_axis(t_ray *ray)
 		ray->d_dist_x = 1 / ray->ray_dir_x ;
 	if (ray->d_dist_x < 0)
 		ray->d_dist_x *= -1;
-
 	if (ray->ray_dir_y == 0)
 		ray->d_dist_y = 1e30;
 	else
