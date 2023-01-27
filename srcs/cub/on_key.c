@@ -41,12 +41,9 @@ static void	set_pos(t_map *map, t_player *player, t_vec2 move)
 			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
 				return ;
 		}
-		else
-		{
-			dest = map->data[(int)move.y * map->width + (int)move.x];
-			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
-				return ;
-		}
+		dest = map->data[(int)move.y * map->width + (int)move.x];
+		if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+			return ;
 	}
 	player->x = move.x;
 	player->y = move.y;
