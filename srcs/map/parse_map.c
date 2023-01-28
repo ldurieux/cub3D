@@ -104,6 +104,8 @@ int	parse_map(t_map *map, char *raw)
 	{
 		if (!*raw)
 			return (ft_dprintf(2, MAP_UNEX_CHR), 0);
+		if (*raw == '\n')
+			break ;
 		if (!parse_line(map, line_idx, raw))
 			return (0);
 		while (*raw && *raw != '\n')
