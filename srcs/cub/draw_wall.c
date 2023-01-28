@@ -43,5 +43,5 @@ void	cub_draw_wall(t_map *map, t_paint *paint, t_wall wall)
 		wall.face_x = 1.0f;
 	wall.height *= (WIN_HEIGHT + 1.0f) / 2.0f;
 	draw_img_scaled_to(paint, map->textures + wall.face_idx,
-		point(wall.draw_x, wall.height), wall.face_x);
+		point(wall.draw_x, wall.height * 2), wall.face_x);
 }

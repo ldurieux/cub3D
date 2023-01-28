@@ -24,6 +24,28 @@ static void	rotate(t_cub *cub, t_llx_win *win)
 		cub->player.dir += M_PI * 2;
 }
 
+#define HIT 0.05f
+
+static int	collide(t_map *map, t_vec2 pos)
+{
+	t_point	pts[4];
+	uint8_t	dest;
+	int		idx;
+
+	pts[0] = point(pos.x - HIT, pos.y - HIT);
+	pts[1] = point(pos.x + HIT, pos.y - HIT);
+	pts[2] = point(pos.x - HIT, pos.y + HIT);
+	pts[3] = point(pos.x + HIT, pos.y + HIT);
+	idx = -1;
+	while (++idx < 4)
+	{
+		dest = map->data[pts[idx].y * map->width + pts[idx].x];
+		if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+			return (1);
+	}
+	return (0);
+}
+
 static void	set_pos(t_map *map, t_player *player, t_vec2 move)
 {
 	uint8_t	dest;
@@ -41,10 +63,9 @@ static void	set_pos(t_map *map, t_player *player, t_vec2 move)
 			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
 				return ;
 		}
-		dest = map->data[(int)move.y * map->width + (int)move.x];
-		if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
-			return ;
 	}
+	if (collide(map, move))
+		return ;
 	player->x = move.x;
 	player->y = move.y;
 }
@@ -58,6 +79,8 @@ static void	translate(t_cub *cub, t_llx_win *win)
 	move.y = llx_win_is_key_down(win, LlxKey_D);
 	move.x -= llx_win_is_key_down(win, LlxKey_S);
 	move.y -= llx_win_is_key_down(win, LlxKey_A);
+	if (fabs(move.x) < 0.01f && fabs(move.y) < 0.01f)
+		return ;
 	if (fabs(move.x) > 0.1f && fabs(move.y) > 0.1f)
 		mul_vec2_f(&move, HALF_SQRT);
 	mat_rot = mat2x2_rot(cub->player.dir);

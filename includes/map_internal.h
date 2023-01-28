@@ -36,7 +36,7 @@
 # define MAP_NOT_CLOSED "Error\nMap not closed\n"
 # define XPM_INVALID "Error\nInvalid xpm\n"
 
-# define MAP_CHRS "012NSEW"
+# define MAP_CHRS "01NSEW"
 
 typedef enum e_field
 {
