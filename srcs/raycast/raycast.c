@@ -6,7 +6,7 @@
 /*   By: zelinsta <zelinsta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:45:31 by tquere            #+#    #+#             */
-/*   Updated: 2023/01/28 10:35:33 by zelinsta         ###   ########.fr       */
+/*   Updated: 2023/01/28 10:44:00 by zelinsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ static void	cast_ray(t_cub *cub, t_ray *ray)
 		{
 			ray->s_dist_x += ray->d_dist_x;
 			ray->cur_box_x += ray->step_x;
-			ray->side = NORTH;
+			ray->side = EAST;
 			if (ray->ray_dir_x > 0)
-				ray->side = SOUTH ;
+				ray->side = WEST ;
 		}
 		else
 		{
 			ray->s_dist_y += ray->d_dist_y;
 			ray->cur_box_y += ray->step_y;
-			ray->side = EAST;
+			ray->side = SOUTH;
 			if (ray->ray_dir_y > 0)
-				ray->side = WEST ;
+				ray->side = NORTH ;
 		}
 		if (cub->map.data[ray->cur_box_y * cub->map.width + ray->cur_box_x] > 1)
 			ray->hit = 1;
@@ -42,9 +42,9 @@ static void	cast_ray(t_cub *cub, t_ray *ray)
 
 static void	get_distance(t_ray *ray)
 {
-	if (ray->side == NORTH || ray->side == SOUTH)
+	if (ray->side == EAST || ray->side == WEST)
 		ray->wall_dist = (ray->s_dist_x - ray->d_dist_x);
-	else if (ray->side == EAST || ray->side == WEST)
+	else if (ray->side == NORTH || ray->side == SOUTH)
 		ray->wall_dist = (ray->s_dist_y - ray->d_dist_y);
 }
 
@@ -64,9 +64,9 @@ static float	get_hit_point(t_cub *cub, t_ray *ray)
 	float	wall_x;
 
 	wall_x = 0;
-	if (ray->side == NORTH || ray->side == SOUTH)
+	if (ray->side == EAST || ray->side == WEST)
 		wall_x = (cub->player.y + ray->wall_dist * ray->ray_dir_y);
-	else if (ray->side == EAST || ray->side == WEST)
+	else if (ray->side == SOUTH || ray->side == NORTH)
 		wall_x = (cub->player.x + ray->wall_dist * ray->ray_dir_x);
 	wall_x -= floor((wall_x));
 	return (wall_x);
