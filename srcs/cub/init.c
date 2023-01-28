@@ -22,8 +22,8 @@ int	cub_init(t_cub *cub, char *file, void *mlx)
 	cub->player.dir = cub->map.spawn.dir * M_PI_2;
 	cub->mm_bounds.x1 = 25;
 	cub->mm_bounds.y1 = 25;
-	cub->mm_bounds.x2 = 25 + WIN_WIDTH / 4;
-	cub->mm_bounds.y2 = 25 + WIN_HEIGHT / 4;
+	cub->mm_bounds.x2 = 225;
+	cub->mm_bounds.y2 = 225;
 	return (1);
 }
 

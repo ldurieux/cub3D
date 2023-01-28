@@ -40,7 +40,7 @@ static int	collide(t_map *map, t_vec2 pos)
 	while (++idx < 4)
 	{
 		dest = map->data[pts[idx].y * map->width + pts[idx].x];
-		if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+		if (dest != EMPTY)
 			return (1);
 	}
 	return (0);
@@ -52,17 +52,14 @@ static void	set_pos(t_map *map, t_player *player, t_vec2 move)
 
 	move.x += player->x;
 	move.y += player->y;
-	if ((int)move.x != (int)player->x || (int)move.y != (int)player->y)
+	if ((int)move.x != (int)player->x && (int)move.y != (int)player->y)
 	{
-		if ((int)move.x != (int)player->x && (int)move.y != (int)player->y)
-		{
-			dest = map->data[((int)move.y) * map->width + (int)player->x];
-			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
-				return ;
-			dest = map->data[((int)player->y) * map->width + (int)move.x];
-			if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
-				return ;
-		}
+		dest = map->data[((int)move.y) * map->width + (int)player->x];
+		if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+			return ;
+		dest = map->data[((int)player->y) * map->width + (int)move.x];
+		if (dest == WALL || dest == 0 || dest == CLOSED_DOOR)
+			return ;
 	}
 	if (collide(map, move))
 		return ;
@@ -81,7 +78,7 @@ static void	translate(t_cub *cub, t_llx_win *win)
 	move.y -= llx_win_is_key_down(win, LlxKey_A);
 	if (fabs(move.x) < 0.01f && fabs(move.y) < 0.01f)
 		return ;
-	if (fabs(move.x) > 0.1f && fabs(move.y) > 0.1f)
+	if (fabs(move.x) > 0.9f && fabs(move.y) > 0.9f)
 		mul_vec2_f(&move, HALF_SQRT);
 	mat_rot = mat2x2_rot(cub->player.dir);
 	mul_vec2_mat2x2(&move, mat_rot);

@@ -18,7 +18,7 @@
 
 # define MM_BG 0x00aaaaaa
 # define MM_PLAYER 0x004499ff
-# define MM_RANGE 50.0f
+# define MM_RANGE 15.0f
 
 //FOV = 90.0f / 180.0f * M_PI
 # define FOV 1.57079632679
