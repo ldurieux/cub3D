@@ -73,7 +73,7 @@ LIB_HEADERS	= $(foreach lib,$(LIB_NAMES),-I$(lib)/includes/)
 BUILDDIR	= .build
 OBJS		= $(SRCS:%.c=$(BUILDDIR)/%.o) 
 DEPS		= $(SRCS:%.c=$(BUILDDIR)/%.d) 
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address
 CDEPSFLAGS	= -MMD -MP
 RM			= rm -Rf
 MAKE		= make -C

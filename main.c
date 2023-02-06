@@ -6,7 +6,7 @@
 /*   By: tquere <tquere@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:50:28 by ldurieux          #+#    #+#             */
-/*   Updated: 2023/01/27 16:23:34 by tquere           ###   ########.fr       */
+/*   Updated: 2023/02/06 01:28:55 by ldurieux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ static void	on_loop(t_llx_win *win, void *map_ptr)
 static void	cub_on_exit(t_llx *llx)
 {
 	t_cub	*cub;
+	int		i;
 
 	cub = llx->data;
+	i = -1;
+	while (++i < 4)
+		mlx_destroy_image(llx->mlx, cub->map.textures[i].addr);
 	cub_free(cub);
 }
 

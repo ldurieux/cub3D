@@ -6,7 +6,7 @@
 /*   By: ldurieux <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:25:37 by ldurieux          #+#    #+#             */
-/*   Updated: 2023/01/23 19:25:38 by ldurieux         ###   ########lyon.fr   */
+/*   Updated: 2023/02/06 01:23:34 by ldurieux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	llx_destroy(t_llx *llx)
 	llx->windows = NULL;
 	llx->last_win_id = 0;
 	llx->win_count = 0;
+	mlx_destroy_display(llx->mlx);
+	free(llx->mlx);
 }
 
 static void	llx_on_exit(t_llx *llx)
