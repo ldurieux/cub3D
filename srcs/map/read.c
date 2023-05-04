@@ -61,6 +61,7 @@ char	*read_all(int fd)
 	list = ft_frwlist_new();
 	if (!list)
 		return (NULL);
+	bytes_read = 0;
 	while (list->size == 0 || bytes_read == READ_SIZE)
 	{
 		buffer = malloc(sizeof(char) * (READ_SIZE + 1));
